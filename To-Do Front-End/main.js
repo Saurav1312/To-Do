@@ -5,19 +5,42 @@ class Task {
         this.date = date; 
     }
 }
-
+const sendHttpRequest =  (method, url, data) => {
+    return fetch(url, {
+        method: method,
+        body: JSON.stringify(data),
+        headers: data ? { 'Content-Type': 'application/json' } : {}
+    }).then (response => {
+        if (response.status >= 400) {
+            return response.json()
+                .then(errResData => {
+                const error = new Error('Something went wrong!');
+                error.data = errResData;
+                throw error;
+            });
+        }
+        return response.json();
+    });
+};
 
 // UI Class: Handle UI Tasks
-
 class UI {
     static displayLists () {
-       
-
+        sendHttpRequest('GET', 'http://localhost:8080/tasks')
+        .then((data) =>{
+         console.log(data);
+         data.forEach(data => UI.addTaskToList(data)) ;
+        })
+        .catch(err => {
+            console.log(err, err.data);
+         });  
+      }
+    /*
+    static displayLists () {
         const lists = StoredLists;
-
         lists.forEach(list => UI.addTaskToList(list)) ;  // in arrow function if there is only one property and one argument then there is no need for enclosing them in bracets and curly braces, we can direclty pass it. 
     }
-
+    */
       static addTaskToList(list) {
           const task = document.querySelector ('#task-list');
 
@@ -32,9 +55,35 @@ class UI {
             `;
 
           task.appendChild(row);
-
         }
-     
+     /*
+     static addTaskToList(list) {
+        const task = document.querySelector ('#task-list');
+        const row = document.createElement('tr');
+        // let title = new title;
+        // let date = new date;
+
+        sendHttpRequest('POST', 'http://localhost:8080/tasks', {
+         title:`${event.target.title.value}`,
+         date:`${event.target.date.value}`
+        })
+         .then((data) =>{
+          console.log(data);
+          row.innerHTML = `
+          <td id="title" target="title">${data.title}</td>
+          <td id="date" target="date">${data.date}</td>
+          <td><a href="#" class="btn btn-info btn-sm edit">Edit</a></td>
+          <td><a href="#" class="btn btn-success btn-sm update">Update</a></td>
+          <td><a href="#" class="btn btn-danger btn-sm delete">Delete</a></td>
+           `;
+
+          task.appendChild(row);
+        })
+        .catch(err => {
+            console.log(err, err.data);
+         });
+      }
+      */
 
 
 
