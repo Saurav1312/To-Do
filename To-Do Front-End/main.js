@@ -41,23 +41,8 @@ class UI {
         lists.forEach(list => UI.addTaskToList(list)) ;  // in arrow function if there is only one property and one argument then there is no need for enclosing them in bracets and curly braces, we can direclty pass it. 
     }
     */
-      static addTaskToList(list) {
-          const task = document.querySelector ('#task-list');
-
-          const row = document.createElement('tr');
-
-          row.innerHTML = `
-          <td id="title">${list.title}</td>
-            <td id="date">${list.date}</td>
-            <td><a href="#" class="btn btn-info btn-sm edit">Edit</a></td>
-            <td><a href="#" class="btn btn-success btn-sm update">Update</a></td>
-            <td><a href="#" class="btn btn-danger btn-sm delete">Delete</a></td>
-            `;
-
-          task.appendChild(row);
-        }
-     /*
-     static addTaskToList(list) {
+    
+    static addTaskToList(list) {
         const task = document.querySelector ('#task-list');
         const row = document.createElement('tr');
         let title = this.title;
@@ -83,9 +68,25 @@ class UI {
             console.log(err, err.data);
          });
       }
-      */
+    
+      
+     /*
+     static addTaskToList(list) {
+          const task = document.querySelector ('#task-list');
 
+          const row = document.createElement('tr');
 
+          row.innerHTML = `
+          <td id="title">${list.title}</td>
+            <td id="date">${list.date}</td>
+            <td><a href="#" class="btn btn-info btn-sm edit">Edit</a></td>
+            <td><a href="#" class="btn btn-success btn-sm update">Update</a></td>
+            <td><a href="#" class="btn btn-danger btn-sm delete">Delete</a></td>
+            `;
+
+          task.appendChild(row);
+        }
+     */
 
     static deleteList(el) {
         if(el.classList.contains('delete')){
