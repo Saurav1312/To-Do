@@ -60,8 +60,8 @@ class UI {
      static addTaskToList(list) {
         const task = document.querySelector ('#task-list');
         const row = document.createElement('tr');
-        // let title = new title;
-        // let date = new date;
+        let title = this.title;
+        let date =  this.date;
 
         sendHttpRequest('POST', 'http://localhost:8080/tasks', {
          title:`${event.target.title.value}`,
