@@ -43,30 +43,29 @@ class UI {
     */
     
     static addTaskToList(list) {
-        const task = document.querySelector ('#task-list');
+       const task = document.querySelector ('#task-list');
         const row = document.createElement('tr');
-        let title = this.title;
-        let date =  this.date;
+        const title = this.title;
+        const date= this.date;
 
         sendHttpRequest('POST', 'http://localhost:8080/tasks', {
-         title:`${event.target.title.value}`,
-         date:`${event.target.date.value}`
+                title:`${event.target.title.value}`,
+                date:`${event.target.date.value}`
         })
          .then((data) =>{
           console.log(data);
           row.innerHTML = `
-          <td id="title" target="title">${data.title}</td>
-          <td id="date" target="date">${data.date}</td>
+          <td id="title">${data.title}</td>
+          <td id="date">${data.date}</td>
           <td><a href="#" class="btn btn-info btn-sm edit">Edit</a></td>
           <td><a href="#" class="btn btn-success btn-sm update">Update</a></td>
           <td><a href="#" class="btn btn-danger btn-sm delete">Delete</a></td>
            `;
-
-          task.appendChild(row);
+        task.appendChild(row);
         })
-        .catch(err => {
+        .catch((err) => {
             console.log(err, err.data);
-         });
+          });
       }
     
       
